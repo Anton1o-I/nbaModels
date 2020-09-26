@@ -9,3 +9,14 @@ class nbaDB:
         )
         Sess = sessionmaker(bind=self.engine)
         self.session = Sess()
+
+    def query():
+        pass
+
+    def get_player_stats():
+        pass
+
+    def get_game_stats():
+        pass
+
+    
