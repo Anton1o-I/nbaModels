@@ -1,10 +1,10 @@
-
 def get_team_stats(start: str = None, end: str = None, team: str = None):
-    return '''
-    '''
+    return """
+    """
+
 
 def get_game_results(start: str = None, end: str = None):
-    return ''' 
+    return """ 
     SELECT
         game.date,
         game.season,
@@ -100,4 +100,60 @@ def get_game_results(start: str = None, end: str = None):
         (SELECT * FROM games) as game
         ON tsh.game_id = game.id
     WHERE tsh.home = true and tsa.home = false;
-    '''
+    """
+
+
+def get_player_stats():
+    return """
+    SELECT
+        game.date,
+        game.season,
+        player.last_name,
+        player.first_name,
+        ps.team_abbr as team,
+        ps.minutes,
+        ps.points,
+        ps.drebs,
+        ps.orebs,
+        ps.rebounds,
+        ps.assists,
+        ps.turnovers,
+        ps.fgm,
+        ps.fga,
+        ps.fg_per,
+        ps.ftm,
+        ps.fta,
+        ps.ft_per,
+        ps.x3pa,
+        ps.x3pm,
+        ps.x3p_per,
+        ps.blocks,
+        ps.steals,
+        ps.fouls,
+        ps.plus_minus,
+        ps.ts_per,
+        ps.efg_per,
+        ps.x3p_ar,
+        ps.ft_ar,
+        ps.oreb_per,
+        ps.dreb_per,
+        ps.reb_per,
+        ps.ast_per,
+        ps.stl_per,
+        ps.blk_per,
+        ps.tov_per,
+        ps.usg_per,
+        ps.off_rating,
+        ps.def_rating,
+        ps.bpm,
+        ps.obpm,
+        ps.dbpm,
+        ps.vorp
+    FROM player_stats as ps
+    LEFT JOIN
+        (SELECT * FROM games) as game
+        ON game.id = ps.game_id
+    LEFT JOIN
+        (SELECT * FROM players) as player
+        ON player.id = ps.player_id;
+	"""
