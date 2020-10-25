@@ -1,5 +1,6 @@
 def get_team_stats(start: str = None, end: str = None, team: str = None):
     return """
+    SELECT * FROM team_stats;
     """
 
 

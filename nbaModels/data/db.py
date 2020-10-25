@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from datetime import date
 
-import data.queries as queries
+import nbaModels.data.queries as queries
 
 USER = os.environ["dbName"]
 PASSWORD = os.environ["dbPass"]
