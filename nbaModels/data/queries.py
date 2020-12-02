@@ -4,7 +4,7 @@ def get_team_stats(start: str = None, end: str = None, team: str = None):
     """
 
 
-def get_game_results(start: str = None, end: str = None):
+def get_games_combined(start: str = None, end: str = None):
     return """ 
     SELECT
         game.date,
@@ -103,6 +103,65 @@ def get_game_results(start: str = None, end: str = None):
     WHERE tsh.home = true and tsa.home = false;
     """
 
+def get_games_by_team():
+    return """
+        SELECT
+        game.date,
+        game.season,
+        ts.team_abbr as team,
+        ts.fgm as fgm,
+        ts.fga as fga,
+        ts.fg_per as fg_per,
+        ts.x3pa as x3pa,
+        ts.x3pm as x3pm,
+        ts.x3p_per as x3p_per,
+        ts.fta as fta,
+        ts.ftm as ftm,
+        ts.ft_per as ft_per,
+        ts.orebs as orebs,
+        ts.drebs as drebs,
+        ts.rebounds as rebounds,
+        ts.assists as assists,
+        ts.steals as steals,
+        ts.blocks as blocks,
+        ts.turnovers as turnovers, 
+        ts.fouls as fouls,
+        ts.points as points,
+        ts.x1q_pts as x1q_pts,
+        ts.x2q_pts as x2q_pts,
+        ts.x3q_pts as x3q_pts,
+        ts.x4q_pts as x4q_pts,
+        ts.ot_pts as ot_pts,
+        ts.pace as pace,
+        ts.efg_per as efg_per,
+        ts.ft_per_fga as ft_per_fga,
+        ts.ts_per as ts_per,
+        ts.x3p_ar as x3p_ar,
+        ts.ft_ar as ft_ar,
+        ts.oreb_per as oreb_per,
+        ts.dreb_per as dreb_per,
+        ts.reb_per as reb_per,
+        ts.ast_per as ast_per,
+        ts.stl_per as stl_per,
+        ts.blk_per as blk_per,
+        ts.tov_per as tov_per,
+        ts.usg_per as usg_per,
+        ts.off_rating as off_rating,
+        ts.def_rating as def_rating,
+		CASE 
+		 	WHEN ts.home = TRUE THEN game.home_wins
+		 	ELSE game.away_wins
+		END AS wins,
+		CASE 
+		 	WHEN ts.home = TRUE THEN game.home_losses
+		 	ELSE game.away_losses
+		END as losses
+    FROM team_stats as ts
+    LEFT JOIN
+        (SELECT * FROM games) as game
+        ON ts.game_id = game.id
+    ;
+    """
 
 def get_player_stats():
     return """

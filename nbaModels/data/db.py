@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from datetime import date
 
-import nbaModels.data.queries as queries
+import nbaModels.data.queries as q
 
 USER = os.environ["dbName"]
 PASSWORD = os.environ["dbPass"]
@@ -34,12 +34,17 @@ class nbaDB:
             df = df[(df["home_team"] == team) | (df["away_team"] == team)]
         return df
 
-    def get_player_stats(
+    def query_player_stats(
         self, start: date = None, end: date = None, team: str = None
     ) -> pd.DataFrame:
-        return self._query_logic(queries.get_player_stats())
+        return self._query_logic(q.get_player_stats())
 
-    def get_game_stats(
+    def query_game_data_combined(
         self, start: date = None, end: date = None, team: str = None
     ) -> pd.DataFrame:
-        return self._query_logic(queries.get_game_results())
+        return self._query_logic(q.get_games_combined())
+
+    def query_game_data_by_team(
+        self, start: date = None, end: date = None, team: str = None
+    ) -> pd.DataFrame:
+        return self._query_logic(q.get_games_by_team())
