@@ -106,8 +106,10 @@ def get_games_combined(start: str = None, end: str = None):
 def get_games_by_team():
     return """
         SELECT
+        ts.game_id as id,
         game.date,
         game.season,
+        ts.home as home,
         ts.team_abbr as team,
         ts.fgm as fgm,
         ts.fga as fga,
